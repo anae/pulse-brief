@@ -1,0 +1,15 @@
+services:
+  pulse-brief:
+    build: .
+    container_name: pulse-brief
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8789:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/health | grep -q ok"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true

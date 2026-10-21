@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pulse Brief transforme des notes de projet en point de situation exécutif clair, structuré et prêt à partager.">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://pulse.ananaba.be/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=20261021-1">
+  <title>Pulse Brief — Ananaba.be</title>
+</head>
+<body>
+  <a class="skip-link" href="#notes">Aller aux notes</a>
+
+  <main class="app-shell">
+    <header class="masthead">
+      <a class="toolbox-link" href="https://ananaba.be/applications/" aria-label="Retour à la toolbox Ananaba.be">
+        <span class="toolbox-mark" aria-hidden="true">Æ</span>
+        <span>ANANABA.BE / TOOLBOX</span>
+      </a>
+      <div class="masthead-copy">
+        <div>
+          <p class="kicker">PROJECT SIGNAL → EXECUTIVE CLARITY</p>
+          <h1>Pulse <span>Brief</span></h1>
+        </div>
+        <p>Collez les notes. Pulse Brief fait remonter ce qui compte vraiment.</p>
+      </div>
+    </header>
+
+    <section class="control-bar" aria-label="Paramètres du rapport">
+      <label class="field project-field">
+        <span>Projet</span>
+        <input id="projectName" type="text" value="Programme Atlas" autocomplete="off">
+      </label>
+      <label class="field date-field">
+        <span>Date du point</span>
+        <input id="reportDate" type="date">
+      </label>
+      <fieldset class="health-control">
+        <legend>Santé du projet</legend>
+        <div class="health-options">
+          <label><input type="radio" name="health" value="on-track" checked><span><i></i>Maîtrisé</span></label>
+          <label><input type="radio" name="health" value="at-risk"><span><i></i>À surveiller</span></label>
+          <label><input type="radio" name="health" value="critical"><span><i></i>Critique</span></label>
+        </div>
+      </fieldset>
+      <div class="control-actions">
+        <button class="button button-ghost" id="loadExample" type="button">Exemple</button>
+        <button class="button button-ghost" id="clearAll" type="button">Effacer</button>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <article class="input-panel">
+        <header class="panel-header">
+          <div>
+            <span class="panel-kicker">01 · MATIÈRE BRUTE</span>
+            <h2>Notes de projet</h2>
+          </div>
+          <span class="live-status"><i></i>Structuration instantanée</span>
+        </header>
+
+        <label class="sr-only" for="notes">Notes à structurer</label>
+        <textarea id="notes" spellcheck="true" placeholder="Une information par ligne…"></textarea>
+
+        <footer class="syntax-guide">
+          <p><strong>Commencez une ligne par</strong></p>
+          <ul>
+            <li><kbd>+</kbd> avancée</li>
+            <li><kbd>&gt;</kbd> prochaine étape</li>
+            <li><kbd>!</kbd> risque</li>
+            <li><kbd>×</kbd> blocage</li>
+            <li><kbd>?</kbd> décision</li>
+            <li><kbd>@</kbd> responsable | action | échéance</li>
+          </ul>
+        </footer>
+      </article>
+
+      <article class="brief-panel">
+        <header class="panel-header brief-toolbar">
+          <div>
+            <span class="panel-kicker">02 · SIGNAL EXÉCUTIF</span>
+            <h2>Brief prêt à partager</h2>
+          </div>
+          <div class="brief-actions">
+            <button class="button button-ghost" id="copyBrief" type="button">Copier</button>
+            <button class="button button-ghost" id="downloadBrief" type="button">.md</button>
+            <button class="button button-accent" id="printBrief" type="button">PDF / Imprimer</button>
+          </div>
+        </header>
+
+        <div class="paper" id="brief" aria-live="polite">
+          <header class="paper-heading">
+            <div>
+              <p class="paper-label">PROJECT PULSE · EXECUTIVE UPDATE</p>
+              <h2 id="briefProject">Programme Atlas</h2>
+              <p id="briefDate"></p>
+            </div>
+            <span class="health-badge on-track" id="healthBadge"><i></i><b>Maîtrisé</b></span>
+          </header>
+
+          <section class="executive-summary">
+            <span>EN UNE PHRASE</span>
+            <p id="summaryText">Ajoutez quelques notes pour faire émerger la synthèse.</p>
+          </section>
+
+          <section class="signal-grid">
+            <article class="signal-card highlights-card">
+              <header><span>AVANCÉES</span><b id="highlightsCount">0</b></header>
+              <ul id="highlightsList"></ul>
+            </article>
+            <article class="signal-card next-card">
+              <header><span>PROCHAINES ÉTAPES</span><b id="nextCount">0</b></header>
+              <ul id="nextList"></ul>
+            </article>
+            <article class="signal-card risks-card">
+              <header><span>RISQUES &amp; BLOCAGES</span><b id="risksCount">0</b></header>
+              <ul id="risksList"></ul>
+            </article>
+            <article class="signal-card decisions-card">
+              <header><span>DÉCISIONS ATTENDUES</span><b id="decisionsCount">0</b></header>
+              <ul id="decisionsList"></ul>
+            </article>
+          </section>
+
+          <section class="actions-section">
+            <header><span>ACTIONS NOMINATIVES</span><b id="actionsCount">0</b></header>
+            <div class="actions-table" id="actionsTable"></div>
+          </section>
+
+          <footer class="paper-footer">
+            <span id="signalLine">0 signal structuré</span>
+            <span>pulse.ananaba.be</span>
+          </footer>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js?v=20261021-1"></script>
+  <script src="https://dashboard.ananaba.be/tracker.js" data-site="pulse" defer></script>
+</body>
+</html>
